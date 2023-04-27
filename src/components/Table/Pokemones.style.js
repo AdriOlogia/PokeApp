@@ -17,6 +17,7 @@ export const Content = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 20px;
 `
 
 export const TableContenido = styled( TableContainer )`
