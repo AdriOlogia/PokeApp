@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 /**
  * @des Consuming API
  */
-import Pokemons from '../Helpers/Pokemon.api'
+import PokeFetch from '../Helpers/Pokemon.api'
 
 /**
  * @desc Style-Component
@@ -85,12 +85,16 @@ const Pokemones = () => {
   const [searchText, setSearchText] = useState("")
   const [finalResult, setFinalResult] = useState([])
   const [emptyMessage, setEmptyMessage] = useState("Por favor, escribe un nombre de pokemon existente")
-  
+  const [Loading, setLoading] = useState(true)
+
   // Lista de pokemones al renderizar
   useEffect(() => {
-    Pokemons().then(items => {
-      setPokelist(items)
-    })
+    setTimeout(() => {
+      PokeFetch(setLoading).then(items => {
+        setPokelist(items)
+      })
+      
+    }, 3000);
   }, [])
 
   useEffect(() => {
@@ -108,73 +112,93 @@ const Pokemones = () => {
   return (
     <Content>
       <h1>Lista de pokemones</h1>
+      {
+        Loading ?
+          <Box
+            sx={{
+              p: 8,
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              minHeight: "100vh"
+            }}
+          >
+            <Skeleton
+              sx={{ bgcolor: 'grey.500', minHeight: "60vh" }}
+              variant="rectangular"
+              width={210}
+              height={118}
+            />
+          </Box> :
+          <TableContenido component={Paper}>
+            {/* search */}
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'search' }}
+                onChange={(e) => handleFinder(e)}
+              />
+            </Search>
+            {/* final search */}
+            {/* Table */}
+            {
+              searchText.length > 0 && finalResult.length === 0 ?
+                <ErrorBox>
+                  <Typography variant="body">
+                    <ErrorMessage>{emptyMessage}</ErrorMessage>
+                    <Skeleton animation="wave" />
+                    <Skeleton />
+                  </Typography>
+                </ErrorBox> :
+                <Table>
+                  {/* header */}
+                  <TableHead>
+                    <RootTableRow>
+                      <TableCell align="center">NUMERO</TableCell>
+                      <TableCell align="center">POKEMONES</TableCell>
+                    </RootTableRow>
+                  </TableHead>
+                  {/* body */}
+                  <TableBody>
+                    {
+                      searchText.length > 0 ?
+                        finalResult.map((row, key) => (
+                          <TableRow
+                            key={row}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                          >
+                            <TableCell component="th" scope="row" align="center">
+                              {key + 1}
+                            </TableCell>
+                            <TableCell component="th" scope="row" align="center">
+                              {row}
+                            </TableCell>
+                          </TableRow>
+                        )) :
+                        pokelist.map((row, key) => (
+                          <TableRow
+                            key={row}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                          >
+                            <TableCell component="th" scope="row" align="center">
+                              {key + 1}
+                            </TableCell>
+                            <TableCell component="th" scope="row" align="center">
+                              {row}
+                            </TableCell>
+                          </TableRow>
+                        ))
+                    }
+                  </TableBody>
+                </Table>
+            }
+          </TableContenido>
+      }
 
-      <TableContenido component={Paper}>
-        {/* search */}
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ 'aria-label': 'search' }}
-            onChange={(e) => handleFinder(e)}
-          />
-        </Search>
-        {/* final search */}
-        {/* Table */}
-        {
-          searchText.length > 0 && finalResult.length === 0 ?
-            <ErrorBox>
-              <Typography variant="body">
-                <ErrorMessage>{emptyMessage}</ErrorMessage>
-                <Skeleton animation="wave" />
-                <Skeleton />
-              </Typography>
-            </ErrorBox> :
-            <Table>
-              {/* header */}
-              <TableHead>
-                <RootTableRow>
-                  <TableCell align="center">NUMERO</TableCell>
-                  <TableCell align="center">POKEMONES</TableCell>
-                </RootTableRow>
-              </TableHead>
-              {/* body */}
-              <TableBody>
-                {
-                  searchText.length > 0 ?
-                    finalResult.map((row, key) => (
-                      <TableRow
-                        key={row}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                      >
-                        <TableCell component="th" scope="row" align="center">
-                          {key + 1}
-                        </TableCell>
-                        <TableCell component="th" scope="row" align="center">
-                          {row}
-                        </TableCell>
-                      </TableRow>
-                    )) :
-                    pokelist.map((row, key) => (
-                      <TableRow
-                        key={row}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                      >
-                        <TableCell component="th" scope="row" align="center">
-                          {key + 1}
-                        </TableCell>
-                        <TableCell component="th" scope="row" align="center">
-                          {row}
-                        </TableCell>
-                      </TableRow>
-                    ))
-                }
-              </TableBody>
-            </Table>
-        }
-      </TableContenido>
+
     </Content>
 
   )

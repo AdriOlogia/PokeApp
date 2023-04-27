@@ -1,11 +1,13 @@
-export const PokemonsApi =  async () => {
+import axios from 'axios'
+import react from 'react';
+
+export const PokemonsApi =  async ( setLoading ) => {
 
     try {
-        const url = `https://pokeapi.co/api/v2/pokemon/?limit=50`;
+                
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=50`);
     
-        const resulApi = await fetch(url);
-    
-        const data = await resulApi.json();
+        const data = response.data;
 
         const finalArray = data.results.map( item => item.name )
         
@@ -14,6 +16,9 @@ export const PokemonsApi =  async () => {
     } catch (error) {
 
         console.log('error pokeapi', error)        
+    }
+    finally {
+        setLoading( false )
     }
 
 }
