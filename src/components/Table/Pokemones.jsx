@@ -3,13 +3,14 @@ import React, { useState, useEffect } from 'react'
 /**
  * @des Consuming API
  */
-import Pokemons from './Helpers/Pokemon.api'
+import Pokemons from '../Helpers/Pokemon.api'
 
 /**
  * @desc Style-Component
  */
 import {
   Content,
+  ErrorBox,
   ErrorMessage,
   RootTableRow,
   TableContenido,
@@ -18,7 +19,18 @@ import {
 /**
  * @des Material UI
  */
-import { Paper, Table, TableBody, TableCell, TableHead, TableRow, InputBase, Box, Typography } from '@mui/material';
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  InputBase,
+  Typography,
+  Box,
+  TextField
+} from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import Skeleton from '@mui/material/Skeleton';
@@ -73,7 +85,7 @@ const Pokemones = () => {
   const [searchText, setSearchText] = useState("")
   const [finalResult, setFinalResult] = useState([])
   const [emptyMessage, setEmptyMessage] = useState("Por favor, escribe un nombre de pokemon existente")
-
+  
   // Lista de pokemones al renderizar
   useEffect(() => {
     Pokemons().then(items => {
@@ -109,52 +121,60 @@ const Pokemones = () => {
             onChange={(e) => handleFinder(e)}
           />
         </Search>
-
         {/* final search */}
-        <Table>
-          {/* header */}
-          <TableHead>
-            <RootTableRow>
-              <TableCell>POKEMONES</TableCell>
-            </RootTableRow>
-          </TableHead>
-          {/* body */}
-          <TableBody>
-            {
-              searchText.length > 0 && finalResult.length === 0 ?
-                <Typography variant="body">
-                    <Skeleton />
-                    <Skeleton animation="wave" />
-                    <ErrorMessage>{emptyMessage}</ErrorMessage>
-                    <Skeleton animation="wave" />
-                    <Skeleton />
-                </Typography> :
-                searchText.length > 0 ?
-                  finalResult.map((row) => (
-                    <TableRow
-                      key={row}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <TableCell component="th" scope="row">
-                        {row}
-                      </TableCell>
-                    </TableRow>
-                  )) :
-                  pokelist.map((row) => (
-                    <TableRow
-                      key={row}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <TableCell component="th" scope="row">
-                        {row}
-                      </TableCell>
-                    </TableRow>
-                  ))
-            }
-          </TableBody>
-        </Table>
+        {/* Table */}
+        {
+          searchText.length > 0 && finalResult.length === 0 ?
+            <ErrorBox>
+              <Typography variant="body">
+                <ErrorMessage>{emptyMessage}</ErrorMessage>
+                <Skeleton animation="wave" />
+                <Skeleton />
+              </Typography>
+            </ErrorBox> :
+            <Table>
+              {/* header */}
+              <TableHead>
+                <RootTableRow>
+                  <TableCell align="center">NUMERO</TableCell>
+                  <TableCell align="center">POKEMONES</TableCell>
+                </RootTableRow>
+              </TableHead>
+              {/* body */}
+              <TableBody>
+                {
+                  searchText.length > 0 ?
+                    finalResult.map((row, key) => (
+                      <TableRow
+                        key={row}
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                      >
+                        <TableCell component="th" scope="row" align="center">
+                          {key + 1}
+                        </TableCell>
+                        <TableCell component="th" scope="row" align="center">
+                          {row}
+                        </TableCell>
+                      </TableRow>
+                    )) :
+                    pokelist.map((row, key) => (
+                      <TableRow
+                        key={row}
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                      >
+                        <TableCell component="th" scope="row" align="center">
+                          {key + 1}
+                        </TableCell>
+                        <TableCell component="th" scope="row" align="center">
+                          {row}
+                        </TableCell>
+                      </TableRow>
+                    ))
+                }
+              </TableBody>
+            </Table>
+        }
       </TableContenido>
-
     </Content>
 
   )

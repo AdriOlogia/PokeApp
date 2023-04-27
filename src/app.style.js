@@ -7,6 +7,7 @@
 /**
  * @description material ui imports
  */
+import { AppBar } from '@mui/material';
 import { styled } from '@mui/system';
 import { NavLink } from 'react-router-dom';
 
@@ -21,4 +22,8 @@ export const ItemNav = styled( NavLink )`
     &:hover{
         color: greenyellow;
     }
+`
+
+export const AppBarRoot = styled( AppBar )`
+    background-color: #0b233b !important;
 `

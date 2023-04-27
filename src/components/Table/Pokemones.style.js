@@ -1,8 +1,8 @@
 /**
  * @des style Material UI
 */
-import { Fragment } from 'react';
-import { InputBase, TableRow } from '@mui/material';
+import {  } from 'react';
+import { Box, InputBase, TableRow } from '@mui/material';
 import TableContainer from '@mui/material/TableContainer';
 import styled from 'styled-components';
 import { Search } from '@mui/icons-material';
@@ -20,7 +20,7 @@ export const Content = styled.div`
 `
 
 export const TableContenido = styled( TableContainer )`
-    width: 20vw;
+    width: 35vw;
 `
 
 export const TableRoot = styled.div`
@@ -30,9 +30,6 @@ export const TableRoot = styled.div`
 `
 
 export const RootTableRow = styled( TableRow )`
-    display: flex;
-    justify-content: center;
-    align-content: center;
 `
 
 export const ErrorMessage = styled.p`
@@ -43,4 +40,11 @@ export const ErrorMessage = styled.p`
     padding: 20px;
     text-align: center;
     margin: 5px 10px;
+`
+
+export const ErrorBox = styled( Box )`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
 `

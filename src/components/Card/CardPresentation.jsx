@@ -6,13 +6,7 @@ import React from 'react'
 import { Card, CardContent, CardMedia, CardActionArea } from '@mui/material';
 import Typography from '@mui/material/Typography';
 
-/**
- * @desc source
- */
-import pokeImg from './Helpers/Pokebienvenidopng.png'
-
-
-function CardPresentation() {
+function CardPresentation({ titulo, mensaje, img }) {
   return (
 
     <Card sx={{ marginTop: 2 }}>
@@ -20,16 +14,16 @@ function CardPresentation() {
         <CardMedia
           component="img"
           height="700"
-          src={pokeImg}
+          src={ img } 
           title='Bienvenido'
         />
       </CardActionArea>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          BIENVENIDO
+          { titulo }
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Esta es una pagina para exponer una cierta cantidad de pokemones existentes en el mundo.
+          { mensaje }
         </Typography>
       </CardContent>
     </Card>

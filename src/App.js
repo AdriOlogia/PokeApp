@@ -3,16 +3,15 @@
  */
 import react from "react";
 
-
 /**
  * @description material ui
  */
-import { AppBar, Toolbar, Typography, Button, Container } from "@mui/material";
+import { Toolbar, Typography, Button, Container } from "@mui/material";
+
 /**
  * @description styles components
  */
-
-import { ItemNav } from "./app.style.js";
+import { AppBarRoot, ItemNav } from "./app.style.js";
 
 /**
  * @description react router
@@ -31,9 +30,9 @@ import {
  */
 
 import Inicio from "./contents/Inicio";
-import Pokemones from "./components/Pokemones.jsx";
+import Pokemones from "./components/Table/Pokemones.jsx";
 import Constacto from "./components/Contacto.jsx";
-import CardPresentation from './components/CardPresentation.jsx'
+import Presentacion from './components/Presentacion.jsx'
 
 
 function App() {
@@ -42,7 +41,7 @@ function App() {
     <Container>
       <Router>
 
-        <AppBar position="static">
+        <AppBarRoot position="static">
           <Toolbar>
             <Typography variant="h6" style={{ flexGrow: 1 }}>
               PokeAPP
@@ -57,7 +56,7 @@ function App() {
               Contacto
             </Button>
           </Toolbar>
-        </AppBar>
+        </AppBarRoot>
 
         
         <Switch>
@@ -74,7 +73,7 @@ function App() {
 
         <Switch>
           <Router path="/" exact>
-            <CardPresentation />
+            <Presentacion />
           </Router>
         </Switch>
 
