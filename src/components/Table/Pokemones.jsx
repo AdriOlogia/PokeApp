@@ -13,6 +13,7 @@ import {
   ErrorBox,
   ErrorMessage,
   GridSprites,
+  ImgSprits,
   RootTableRow,
   TableContenido,
 } from './Pokemones.style'
@@ -90,8 +91,8 @@ const Pokemones = () => {
 
   const emptyMessage = "Por favor, escribe un nombre de pokemon existente de la lista"
   const [pokelist, setPokelist] = useState([])
-  const [searchText, setSearchText] = useState("")
   const [finalResult, setFinalResult] = useState([])
+  const [searchText, setSearchText] = useState("")
   const [Loading, setLoading] = useState(true)
 
   // Lista de pokemones al renderizar
@@ -129,7 +130,7 @@ const Pokemones = () => {
     return(
       <Fragment key={id}>
         <TableRow>
-          <TableCell>
+          <TableCell align='center'>
             <IconButton
               aria-label="expand row"
               size="small"
@@ -138,8 +139,14 @@ const Pokemones = () => {
               {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </IconButton>
           </TableCell>
+          {
+            searchText.length > 0 ?
+            <TableCell align="left">{name}</TableCell>:
+            <>
             <TableCell align="center">{id + 1}</TableCell>
             <TableCell align="center">{name}</TableCell>
+            </>
+          }
         </TableRow>
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -147,10 +154,10 @@ const Pokemones = () => {
               <Box alignItems="center" sx={{ margin: 1 }}>
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                   <GridSprites item xs={6}>
-                    <img src={sprites.front_default} alt={name} />
+                    <ImgSprits src={sprites.front_default} alt={name} />
                   </GridSprites>
                   <GridSprites item xs={6}>
-                    <img src={sprites.back_default} alt={name} />
+                    <ImgSprits src={sprites.back_default} alt={name} />
                   </GridSprites>
                 </Grid>
               </Box>
@@ -194,7 +201,6 @@ const Pokemones = () => {
                 onChange={(e) => handleFinder(e)}
               />
             </Search>
-
             {/* Table */}
             {
               searchText.length > 0 && finalResult.length === 0 ?
@@ -208,8 +214,14 @@ const Pokemones = () => {
                   <TableHead>
                     <RootTableRow hover={true}>
                       <TableCell align='center'></TableCell>
-                      <TableCell align="center">NUMERO</TableCell>
-                      <TableCell align="center">POKEMONES</TableCell>
+                      {
+                        searchText.length > 0 ?
+                        <TableCell align="left">NUMERO</TableCell> :
+                        <>
+                        <TableCell align="center">NUMERO</TableCell>
+                        <TableCell align="center">POKEMONES</TableCell>
+                        </>
+                      }
                     </RootTableRow>
                   </TableHead>
                   {/* body */}

@@ -6,9 +6,7 @@ export const PokemonsApi =  async ( cantidad = 51 ) => {
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${cantidad}`);
     
         const data = response.data;
-
-        console.log('data', data)
-
+        
         const finalArray = data.results.map( item => item.name )
 
         return {

@@ -55,3 +55,7 @@ export const GridSprites = styled( Grid )`
     justify-content: center;
     align-items: center;
 `
+
+export const ImgSprits = styled.img`
+    width: 150px;
+`
