@@ -127,6 +127,7 @@ const Pokemones = () => {
   const BodyRowFunction = ({name, id}) =>{    
     const [open, setOpen] = useState(false)
     const [sprites, setSprites] = useState({})
+    const [SpritesType, setSpritesType] = useState([])
     return(
       <Fragment key={id}>
         <TableRow>
@@ -134,7 +135,7 @@ const Pokemones = () => {
             <IconButton
               aria-label="expand row"
               size="small"
-              onClick={() => {setOpen(!open), PokeSprites(name, setSprites)}}
+              onClick={() => {setOpen(!open), PokeSprites(name, setSprites, setSpritesType)}}
             >
               {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </IconButton>
@@ -158,6 +159,16 @@ const Pokemones = () => {
                   </GridSprites>
                   <GridSprites item xs={6}>
                     <ImgSprits src={sprites.back_default} alt={name} />
+                  </GridSprites>
+                  <GridSprites align="center" container spacing={2} >
+                    <Grid item xs={12} style={{ marginBottom: -17 }}>
+                      <Typography variant="caption" display="block" gutterBottom>type</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                    {
+                      SpritesType.map( itemType => ` ${itemType.type.name} `.toUpperCase() )
+                    }
+                    </Grid>
                   </GridSprites>
                 </Grid>
               </Box>

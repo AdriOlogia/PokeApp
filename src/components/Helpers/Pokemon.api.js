@@ -6,7 +6,7 @@ export const PokemonsApi =  async ( cantidad = 51 ) => {
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${cantidad}`);
     
         const data = response.data;
-        
+
         const finalArray = data.results.map( item => item.name )
 
         return {
@@ -19,13 +19,15 @@ export const PokemonsApi =  async ( cantidad = 51 ) => {
     }
 }
 
-export const PokeSprites = async ( pokeName, setSprites ) => {
+export const PokeSprites = async ( pokeName, setSprites, setSpritesType ) => {
     try {        
         const DataPokeApi = await PokemonsApi()
 
         const ResultsPokeApi = DataPokeApi.DataResult.results.filter( item => item.name === pokeName )
 
         const urlPokemonSelected = await axios.get(`${ResultsPokeApi[0].url}`)
+
+        setSpritesType( urlPokemonSelected.data.types )
 
         const pokeSprites = await urlPokemonSelected.data.sprites
 
