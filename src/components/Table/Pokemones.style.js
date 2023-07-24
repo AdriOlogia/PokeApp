@@ -2,7 +2,7 @@
  * @des style Material UI
 */
 import {  } from 'react';
-import { Box, InputBase, TableRow } from '@mui/material';
+import { Box, Grid, InputBase, TableRow } from '@mui/material';
 import TableContainer from '@mui/material/TableContainer';
 import styled from 'styled-components';
 import { Search } from '@mui/icons-material';
@@ -48,4 +48,10 @@ export const ErrorBox = styled( Box )`
     justify-content: center;
     align-items: center;
     margin: 10px;
+`
+
+export const GridSprites = styled( Grid )`
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `

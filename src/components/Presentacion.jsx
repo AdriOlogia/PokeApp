@@ -7,7 +7,7 @@ import CardPresentation from './Card/CardPresentation'
 /**
  * @desc source
  */
-import pokeImg from './Helpers/Pokebienvenidopng.png'
+import pokeImg from './assets/Pokebienvenidopng.png'
 
 function Presentacion() {
   return (
