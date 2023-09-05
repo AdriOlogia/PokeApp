@@ -1,8 +1,15 @@
-# PokeApp
-PokeApp proyecto para jugar
+# PORYECTO DE POKEMON API
+
+## Inicio Rápido
+1- Al clonar el repositorio se necesitar instalar las dependencias con el comando: 
+ ```
+   npm i
+```
+
+2- Para inicializar el proyecto ejecuta el comando en la consola:
 
 
-#Como iniciar el proyecto
 
-Para iniciar el proyecto instalamos las dependencias que trae el package.json
-Con el comando "npm start" el proyecto levantara en el navegador predeterminado
+   ```
+   npm start
+```
